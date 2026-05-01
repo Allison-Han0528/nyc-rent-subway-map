@@ -70,7 +70,7 @@ function buildColorExpression(bedType) {
 -------------------------------------------------- */
 const subwayColorExpression = [
     'match',
-    ['slice', ['get', 'LINE'], 0, 1],
+    ['slice', ['get', 'line'], 0, 1],
     'A', '#0039A6',  'C', '#0039A6',  'E', '#0039A6',
     'B', '#FF6319',  'D', '#FF6319',  'F', '#FF6319',  'M', '#FF6319',
     'G', '#6CBE45',
@@ -207,8 +207,8 @@ map.on('click', 'subway-stations-layer', (e) => {
     new mapboxgl.Popup({ closeButton: false, offset: 8 })
         .setLngLat(e.lngLat)
         .setHTML(`
-            <div class="popup-station-name">${props.NAME}</div>
-            <div class="popup-station-lines">Lines: ${props.LINE}</div>
+            <div class="popup-station-name">${props.stop_name}</div>
+            <div class="popup-station-lines">Lines: ${props.line}</div>
         `)
         .addTo(map);
 });
