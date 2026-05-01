@@ -1,0 +1,370 @@
+/* =====================================================
+   style.css — NYC Rent × Subway Map
+   Layout: fixed sidebar (left) + full-height map (right)
+   Theme: dark sidebar / light basemap / NYC yellow accent
+===================================================== */
+
+/* ---------- CSS Variables (design tokens) ---------- */
+:root {
+    --bg:           #0d1117;   /* near-black sidebar background */
+    --surface:      #161b22;   /* slightly lighter card surface */
+    --border:       #30363d;   /* subtle border color */
+    --text:         #e6edf3;   /* primary text */
+    --text-muted:   #7d8590;   /* secondary / label text */
+    --accent:       #FFD166;   /* NYC taxi yellow — main accent */
+    --accent-dim:   rgba(255, 209, 102, 0.15);
+    --green:        #1a9641;   /* cheap rent */
+    --red:          #d7191c;   /* expensive rent */
+    --sidebar-w:    340px;
+    --font-head:    'Syne', sans-serif;
+    --font-body:    'DM Sans', sans-serif;
+    --font-mono:    'DM Mono', monospace;
+}
+
+/* ---------- Reset + Base ---------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ---------- Sidebar ---------- */
+#sidebar {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    height: 100vh;
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    z-index: 10;
+}
+
+/* Hide scrollbar but keep scroll functionality */
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+/* ---------- Header Section ---------- */
+#header {
+    padding: 24px 20px 20px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+}
+
+/* Small colored dot as a design accent */
+#logo-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    color: var(--text);
+}
+
+h1 .accent {
+    color: var(--accent);
+}
+
+.tagline {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.tagline em {
+    font-style: normal;
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* Call-to-action instruction */
+.cta {
+    margin-top: 10px;
+    font-size: 12px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(255, 209, 102, 0.3);
+    color: var(--accent);
+    padding: 8px 10px;
+    border-radius: 6px;
+    line-height: 1.4;
+}
+
+/* ---------- Section labels (small caps style) ---------- */
+.section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+/* ---------- Bedroom Filter Buttons ---------- */
+#filter-section {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+#bedroom-filters {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* Active state — filled yellow button */
+.filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+}
+
+/* ---------- Neighborhood Info Panel ---------- */
+#neighborhood-info {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+    min-height: 160px;
+}
+
+.placeholder-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-style: italic;
+}
+
+/* Info card that appears after clicking a neighborhood */
+.info-card h2 {
+    font-family: var(--font-head);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+}
+
+.info-card .borough-tag {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    background: var(--surface);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+}
+
+/* Rent table */
+.rent-table {
+    width: 100%;
+    margin-top: 14px;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.rent-table th {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 0 0 6px;
+    border-bottom: 1px solid var(--border);
+}
+
+.rent-table td {
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(48, 54, 61, 0.5);
+    color: var(--text);
+}
+
+.rent-table td:last-child {
+    text-align: right;
+    font-family: var(--font-mono);
+    font-weight: 500;
+}
+
+/* Highlighted row for the currently selected bedroom filter */
+.rent-table tr.active-row td {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* ---------- Layer Toggles ---------- */
+#layer-toggles {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.toggle-label:hover {
+    color: var(--text);
+}
+
+/* Hide native checkbox */
+.toggle-label input[type="checkbox"] {
+    display: none;
+}
+
+/* Custom toggle switch */
+.toggle-custom {
+    width: 32px;
+    height: 18px;
+    background: var(--border);
+    border-radius: 9px;
+    position: relative;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.toggle-custom::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.2s, background 0.2s;
+}
+
+input[type="checkbox"]:checked + .toggle-custom {
+    background: var(--accent-dim);
+    border: 1px solid rgba(255, 209, 102, 0.4);
+}
+
+input[type="checkbox"]:checked + .toggle-custom::after {
+    transform: translateX(14px);
+    background: var(--accent);
+}
+
+/* ---------- Legend ---------- */
+#legend {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+#legend-items {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.legend-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+}
+
+.legend-swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.legend-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-style: italic;
+}
+
+/* ---------- Data Credit ---------- */
+#data-credit {
+    padding: 14px 20px;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: auto; /* pushes to bottom of sidebar */
+}
+
+#data-credit a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+#data-credit a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Map Container ---------- */
+#map {
+    flex: 1;  /* takes all remaining width */
+    height: 100vh;
+}
+
+/* ---------- Mapbox popup overrides ---------- */
+.mapboxgl-popup-content {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    padding: 10px 14px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.mapboxgl-popup-tip {
+    border-top-color: var(--surface);
+}
+
+.popup-station-name {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.popup-station-lines {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+}
