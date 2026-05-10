@@ -4,24 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NYC Rent × Subway — Find Your Sweet Spot</title>
-
-    <!-- Mapbox GL JS stylesheet — required for map rendering -->
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet" />
-
-    <!-- Google Fonts: Syne (headings) + DM Sans (body) -->
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
-    <!-- Our custom stylesheet -->
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-    <!-- =====================================================
-         SIDEBAR — title, filters, neighborhood info, legend
-    ====================================================== -->
+    <!-- SIDEBAR -->
     <aside id="sidebar">
 
-        <!-- Project title + call to action -->
         <div id="header">
             <div id="logo-dot"></div>
             <h1>NYC Rent <span class="accent">×</span> Subway</h1>
@@ -29,42 +20,47 @@
             <p class="cta">👆 Click any neighborhood to see rent details.</p>
         </div>
 
-        <!-- ---- Bedroom filter buttons ---- -->
+        <!-- Bedroom filter buttons -->
+        <!-- data-type matches the GeoJSON property names exactly -->
         <div id="filter-section">
             <p class="section-label">FILTER BY BEDROOM</p>
             <div id="bedroom-filters">
-                <!-- data-type must match keys in bedTypeMap in map.js -->
-                <button class="filter-btn active" data-type="rent_all">All</button>
-                <button class="filter-btn" data-type="rent_studio">Studio</button>
-                <button class="filter-btn" data-type="rent_1bed">1 BR</button>
-                <button class="filter-btn" data-type="rent_2bed">2 BR</button>
-                <button class="filter-btn" data-type="rent_3plus">3+ BR</button>
+                <button class="filter-btn active" data-type="rent_data_rent_all">All</button>
+                <button class="filter-btn" data-type="rent_data_rent_studio">Studio</button>
+                <button class="filter-btn" data-type="rent_data_rent_1bed">1 BR</button>
+                <button class="filter-btn" data-type="rent_data_rent_2bed">2 BR</button>
+                <button class="filter-btn" data-type="rent_data_rent_3plus">3+ BR</button>
             </div>
         </div>
 
-        <!-- ---- Neighborhood info panel (populated on click) ---- -->
+        <!-- Neighborhood info panel -->
         <div id="neighborhood-info">
             <p class="placeholder-text">Select a neighborhood on the map to see median rent by bedroom type.</p>
         </div>
 
-        <!-- ---- Map layer toggles ---- -->
+        <!-- Layer toggles -->
         <div id="layer-toggles">
             <p class="section-label">LAYERS</p>
             <label class="toggle-label">
-                <input type="checkbox" id="toggle-subway" checked />
+                <input type="checkbox" id="toggle-subway-lines" checked />
+                <span class="toggle-custom"></span>
+                Show Subway Lines
+            </label>
+            <label class="toggle-label" style="margin-top:8px">
+                <input type="checkbox" id="toggle-subway-stations" />
                 <span class="toggle-custom"></span>
                 Show Subway Stations
             </label>
         </div>
 
-        <!-- ---- Color legend (generated dynamically by JS) ---- -->
+        <!-- Color legend -->
         <div id="legend">
             <p class="section-label">MEDIAN RENT</p>
             <div id="legend-items"></div>
             <p class="legend-note">Gray = no data available</p>
+            <p class="legend-note" style="margin-top:4px">StreetEasy covers Manhattan, Brooklyn, and Queens most completely. Other areas may have limited data.</p>
         </div>
 
-        <!-- ---- Data credit ---- -->
         <div id="data-credit">
             Data: <a href="https://streeteasy.com/blog/data-dashboard/" target="_blank">StreetEasy</a> &amp;
             <a href="https://data.cityofnewyork.us" target="_blank">NYC Open Data</a>
@@ -72,15 +68,10 @@
 
     </aside>
 
-    <!-- =====================================================
-         MAP — full-screen Mapbox GL JS map container
-    ====================================================== -->
+    <!-- MAP -->
     <div id="map"></div>
 
-    <!-- Mapbox GL JS library -->
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
-
-    <!-- Our custom map logic -->
     <script src="js/map.js"></script>
 
 </body>
