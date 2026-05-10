@@ -7,8 +7,6 @@ An interactive web map that helps you find NYC neighborhoods that are both **aff
 
 ---
 
-![Map Preview](preview.png)
-
 ---
 
 ## Why It Exists
