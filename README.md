@@ -7,8 +7,6 @@ An interactive web map that helps you find NYC neighborhoods that are both **aff
 
 ---
 
----
-
 ## Why It Exists
 
 My apartment lease is expiring and I needed a smarter way to find a new place in NYC. There's always a trade-off: neighborhoods close to the subway tend to be the most expensive, but moving farther out means a longer commute. This map was built to answer one question visually:
